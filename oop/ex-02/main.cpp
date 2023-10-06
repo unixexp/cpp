@@ -12,10 +12,10 @@ class Parent {
         virtual const string whoAreYou() { return "I'm Parent! My name is " + m_name; }
 };
 
-class Child: public Parent {
+class Child final : public Parent {
     public:
         Child(string name) : Parent(name) {};
-        virtual const string whoAreYou() { return "I'm Child! My name is " + m_name; }
+        virtual const string whoAreYou() override { return "I'm Child! My name is " + m_name; }
 };
 
 void report(Parent &obj) {
