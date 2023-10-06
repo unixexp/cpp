@@ -1,24 +1,33 @@
 #include <iostream>
 using namespace std;
 
-class A {
-    private:
-        string m_value;
+// Poly
+
+class Parent {
+    protected:
+        string m_name;
     public:
-        static const int FLAG = 1;
-        static string m_svalue;
-
-        A(const string &value="") { m_value = value; }
-
-        const string &getValue() { return m_value; }
+        Parent(string name) : m_name(name) {};
+        const string &getName() { return m_name; }
+        virtual const string whoAreYou() { return "I'm Parent! My name is " + m_name; }
 };
 
-string A::m_svalue = "Static value";
+class Child: public Parent {
+    public:
+        Child(string name) : Parent(name) {};
+        virtual const string whoAreYou() { return "I'm Child! My name is " + m_name; }
+};
+
+void report(Parent &obj) {
+    cout << obj.whoAreYou() + "\n";
+}
 
 int main() {
-    A a("Class A");
-    cout << a.getValue() << endl;
-    cout << A::m_svalue << endl;
+    Parent parent("Bob");
+    Child child("Joe");
+
+    report(parent);
+    report(child);
 
     return 0;
 }

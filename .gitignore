@@ -1,11 +1,11 @@
 # Default ignored files
 __pycache__
-.idea
+*.idea
 node_modules
 dist
 package-lock.json
-.DS_Store
-.vscode
-.o
-.i
-.s
+*.DS_Store
+*.vscode
+*.o
+*.i
+*.s
