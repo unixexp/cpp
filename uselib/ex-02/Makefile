@@ -1,7 +1,6 @@
 BUILD_DIR = build
 BUILD_LIB_DIR = $(BUILD_DIR)/lib
-MAKE_BUILD_DIRS = test -d $(BUILD_DIR) || mkdir $(BUILD_DIR) && \
-					test -d $(BUILD_LIB_DIR) || mkdir $(BUILD_LIB_DIR)
+MAKE_BUILD_DIRS = test -d $(BUILD_DIR) || mkdir $(BUILD_DIR)
 OBJS = $(BUILD_DIR)/main.o
 OUT = $(BUILD_DIR)/main
 CC = g++
@@ -15,7 +14,7 @@ all: $(OBJS)
 
 $(BUILD_DIR)/main.o: main.cpp
 	@$(MAKE_BUILD_DIRS)
-	$(CC) $(FLAGS) -o $(BUILD_DIR)/main.o main.cpp -std=c++11
+	$(CC) $(FLAGS) -o $(BUILD_DIR)/main.o main.cpp -std=c++11 -I/Users/unixexp/personal/home/development/github.com/cpp/uselib/ex-02/SmartLibrary/include -L/Users/unixexp/personal/home/development/github.com/cpp/uselib/ex-02/SmartLibrary/build/lib -libsmartcontainer
 
 
 clean:
