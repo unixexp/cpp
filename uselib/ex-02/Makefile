@@ -5,7 +5,7 @@ OBJS = $(BUILD_DIR)/main.o
 OUT = $(BUILD_DIR)/main
 CC = g++
 FLAGS = -g -c -Wall
-LFLAGS = -Wl,-rpath,/Users/unixexp/personal/home/development/github.com/cpp/uselib/ex-02/build
+LFLAGS =
 LIBS = -lsmartcontainer -LSmartLibrary/build/lib
 # -g option enables debugging mode 
 # -c flag generates object code for separate files
