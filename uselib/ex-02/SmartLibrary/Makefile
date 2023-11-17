@@ -13,7 +13,7 @@ all: $(OBJS)
 
 $(BUILD_DIR)/SmartContainer.o: SmartContainer.cpp
 	@$(MAKE_BUILD_DIRS)
-	$(CC) $(FLAGS) -o $(BUILD_DIR)/SmartContainer.o SmartContainer.cpp -std=c++11
+	$(CC) $(FLAGS) -o $(BUILD_DIR)/SmartContainer.o SmartContainer.cpp -std=c++11 -fPIC
 	$(CC) -shared -o $(BUILD_LIB_DIR)/libsmartcontainer.dylib $(BUILD_DIR)/SmartContainer.o -std=c++11
 
 clean:
