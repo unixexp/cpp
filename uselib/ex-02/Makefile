@@ -6,14 +6,14 @@ OUT = $(BUILD_DIR)/main
 CC = g++
 FLAGS = -g -c -Wall
 LFLAGS =
-LIBS = -lsmartcontainer -LSmartLibrary/build/lib
+LIBS = -lsmartcontainer -Lbuild/lib
 # -g option enables debugging mode 
 # -c flag generates object code for separate files
 
 all: $(OBJS)
-	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS) $(LIBS)
 	cp ./SmartLibrary/build/lib/libsmartcontainer.dylib $(BUILD_LIB_DIR)/
 	install_name_tool -id @executable_path/lib/libsmartcontainer.dylib $(BUILD_LIB_DIR)/libsmartcontainer.dylib
+	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS) $(LIBS)
 
 $(BUILD_DIR)/main.o: main.cpp
 	@$(MAKE_BUILD_DIRS)
