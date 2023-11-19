@@ -1,0 +1,9 @@
+This is a demonstration package for GNU Automake.
+Type 'info Automake' to read the Automake manual.
+
+Call
+# autoreconf --install
+
+to generate Makefiles, then you can call
+
+# ./configure && make && make install
