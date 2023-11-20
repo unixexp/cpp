@@ -1,9 +1,20 @@
-This is a demonstration package for GNU Automake.
-Type 'info Automake' to read the Automake manual.
+# This is an example how to autotools can be used
+# to deploy your C++ application
 
-Call
-# autoreconf --install
+# All you need, call next commands
 
-to generate Makefiles, then you can call
+# aclocal && autoconf && automake --add-missing
 
-# ./configure && make && make install
+to prepare configure script and Makefiles.
+After that you can run
+
+# ./configure
+
+and
+
+# make dist
+
+command to get tarball to provide it for your users.
+
+User just download tarball, unpack it and run ./configure && make && make install
+commands
