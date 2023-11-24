@@ -5,6 +5,10 @@
 
 # aclocal && autoconf && automake --add-missing
 
+OR
+
+# autoreconf --install
+
 to prepare configure script and Makefiles.
 After that you can run
 
