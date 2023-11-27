@@ -1,6 +1,6 @@
 #include <iostream>
 #include <array>
-#include "dollars.h"
+#include <dollars.h>
 
 using namespace std;
 

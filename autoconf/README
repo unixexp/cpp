@@ -1,0 +1,8 @@
+To run this examples autotools should be
+preinstalled because it is using:
+
+autoreconf
+aclocal
+autoconf
+automake
+libtool
