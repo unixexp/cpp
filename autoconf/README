@@ -1,5 +1,8 @@
-To run this examples autotools should be
-preinstalled because it is using:
+To run this examples please unpack *.tgz dist archives,
+call ./configure && make && make install
+OR if you want to change automake params to added new libs or
+sources you should to install autotools to remake dist,
+because depended from:
 
 autoreconf
 aclocal
