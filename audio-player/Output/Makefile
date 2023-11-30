@@ -1,5 +1,5 @@
 SRC_DIR=.
-SUBDIRS=Output/coreaudio xmms
+SUBDIRS=coreaudio
 
 all: make_recursive_targets
 
