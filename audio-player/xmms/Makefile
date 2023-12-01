@@ -8,10 +8,10 @@ PLUGIN_SUBS=Output Input Effect General Visualization
 DPLUGIN_SUBS="\\\"Output\\\",\\\"Input\\\",\\\"Effect\\\",\\\"General\\\",\\\"Visualization\\\""
 
 BUILD_DIR=build
-OBJS=main$(O) pluginenum$(O) general$(O) effect$(O)
+OBJS=main$(O) pluginenum$(O) general$(O) effect$(O) input$(O)
 OUT=main
 CC=gcc
-CFLAGS=-g -Wall -I/usr/local/Cellar/glib/2.68.3/include/glib-2.0 -I/usr/local/Cellar/glib/2.68.3/include/glib-2.0/glib \
+CFLAGS=-g -Wall -I../ -I/usr/local/Cellar/glib/2.68.3/include/glib-2.0 -I/usr/local/Cellar/glib/2.68.3/include/glib-2.0/glib \
 	-I/usr/local/Cellar/glib/2.68.3/lib/glib-2.0/include -DPLUGIN_DIR=\"$(PLUGIN_DIR)\" -DPLUGINSUBS=\"$(DPLUGIN_SUBS)\"
 LFLAGS=-g -L/usr/local/Cellar/glib/2.68.3/lib -lglib-2.0.0
 
@@ -42,3 +42,6 @@ effect.o: effect.c
 	@echo Compile $<
 	@$(CC) $(CFLAGS) -c -o effect$(O) $<
 
+input.o: input.c
+	@echo Compile $<
+	@$(CC) $(CFLAGS) -c -o input$(O) $<

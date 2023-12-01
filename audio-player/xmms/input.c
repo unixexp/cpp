@@ -19,9 +19,9 @@
  */
 #include "xmms.h"
 #include "fft.h"
-#include "libxmms/titlestring.h"
+// #include "libxmms/titlestring.h"
 #include "libxmms/util.h"
-#include "libxmms/xentry.h"
+// #include "libxmms/xentry.h"
 
 static pthread_mutex_t vis_mutex = PTHREAD_MUTEX_INITIALIZER;
 
@@ -38,7 +38,7 @@ struct InputPluginData *ip_data;
 static GList *vis_list = NULL;
 
 gchar *input_info_text = NULL;
-extern PlayStatus *mainwin_playstatus;
+// extern PlayStatus *mainwin_playstatus;
 
 void input_add_vis_pcm(int time, AFormat fmt, int nch, int length, void *ptr);
 InputVisType input_get_vis_type();
@@ -311,15 +311,7 @@ void input_stop(void)
 
 void input_pause(void)
 {
-	if (get_input_playing() && get_current_input_plugin())
-	{
-		ip_data->paused = !ip_data->paused;
-		if (ip_data->paused)
-			playstatus_set_status(mainwin_playstatus, STATUS_PAUSE);
-		else
-			playstatus_set_status(mainwin_playstatus, STATUS_PLAY);
-		get_current_input_plugin()->pause(ip_data->paused);
-	}
+	return;
 }
 
 gint input_get_time(void)
