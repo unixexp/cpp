@@ -13,6 +13,7 @@
 #include "xmms.h"
 
 Config cfg;
+GList *disabled_iplugins = NULL;
 
 int main() {
 

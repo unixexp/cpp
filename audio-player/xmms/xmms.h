@@ -24,14 +24,13 @@
 #include "playlist.h"
 // #include "playlist_list.h"
 #include "plugin.h"
-#include "pluginenum.h"
 #include "output.h"
 #include "input.h"
 #include "effect.h"
 #include "general.h"
-#include "visualization.h"
 #include "skinwin.h"
 #include "main.h"
+#include "pluginenum.h"
 #include "playlistwin.h"
 
 #endif

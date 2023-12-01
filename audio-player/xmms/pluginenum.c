@@ -27,7 +27,6 @@ extern struct InputPluginData *ip_data;
 extern struct OutputPluginData *op_data;
 extern struct EffectPluginData *ep_data;
 extern struct GeneralPluginData *gp_data;
-extern struct VisPluginData *vp_data;
 
 void scan_plugins(char *dirname);
 void add_plugin(char * filename);
@@ -91,7 +90,6 @@ void init_plugins(void)
 	op_data = g_malloc0(sizeof (struct OutputPluginData));
 	ep_data = g_malloc0(sizeof (struct EffectPluginData));
 	gp_data = g_malloc0(sizeof (struct GeneralPluginData));
-	vp_data = g_malloc0(sizeof (struct VisPluginData));
 
 #ifndef DISABLE_USER_PLUGIN_DIR
 	dir = g_strconcat(g_get_home_dir(), "/.xmms/Plugins", NULL);
@@ -123,10 +121,8 @@ void init_plugins(void)
 	ep_data->enabled_list = NULL;
 	gp_data->general_list = g_list_sort(gp_data->general_list, generallist_compare_func);
 	gp_data->enabled_list = NULL;
-	vp_data->vis_list = g_list_sort(vp_data->vis_list, vislist_compare_func);
-	vp_data->enabled_list = NULL;
 	general_enable_from_stringified_list(cfg.enabled_gplugins);
-	vis_enable_from_stringified_list(cfg.enabled_vplugins);
+	// vis_enable_from_stringified_list(cfg.enabled_vplugins);
 	effect_enable_from_stringified_list(cfg.enabled_eplugins);
 	if (cfg.enabled_gplugins)
 	{
@@ -258,14 +254,8 @@ static int plugin_check_duplicate(char *filename)
 			    g_basename(((GeneralPlugin*)l->data)->filename)))
 			return 1;
 
-	for (l = vp_data->vis_list; l; l = l->next)
-		if (!strcmp(base_filename,
-			    g_basename(((VisPlugin*)l->data)->filename)))
-			return 1;
-
 	return 0;
 }
-
 
 void add_plugin(char * filename)
 {
@@ -307,6 +297,7 @@ void add_plugin(char * filename)
 		p->filename = g_strdup(filename);
 		ep_data->effect_list = g_list_prepend(ep_data->effect_list, p);
 	}
+	/*
 	else if ((gpi = find_dynamic_symbol(h, "get_gplugin_info")) != NULL)
 	{
 		GeneralPlugin *p = gpi();
@@ -324,6 +315,7 @@ void add_plugin(char * filename)
 		p->disable_plugin = vis_disable_plugin;
 		vp_data->vis_list = g_list_prepend(vp_data->vis_list, p);
 	}
+	*/
 	else
 		close_dynamic_lib(h);
 }
@@ -366,9 +358,9 @@ void cleanup_plugins(void)
 		if (ip->cleanup)
 		{
 			ip->cleanup();
-			GDK_THREADS_LEAVE();
+			// GDK_THREADS_LEAVE();
 			while(g_main_iteration(FALSE));
-			GDK_THREADS_ENTER();
+			// GDK_THREADS_ENTER();
 		}
 		g_free(ip->filename);
 		close_dynamic_lib(ip->handle);
@@ -395,9 +387,9 @@ void cleanup_plugins(void)
 		if (ep->cleanup)
 		{
 			ep->cleanup();
-			GDK_THREADS_LEAVE();
+			// GDK_THREADS_LEAVE();
 			while(g_main_iteration(FALSE));
-			GDK_THREADS_ENTER();
+			// GDK_THREADS_ENTER();
 		}
 		g_free(ep->filename);
 		close_dynamic_lib(ep->handle);
@@ -416,9 +408,9 @@ void cleanup_plugins(void)
 	}
 	g_list_free(gp_data->enabled_list);
 
-	GDK_THREADS_LEAVE();
+	// GDK_THREADS_LEAVE();
 	while(g_main_iteration(FALSE));
-	GDK_THREADS_ENTER();
+	// GDK_THREADS_ENTER();
 	
 	node = gp_data->general_list;
 	while (node)
@@ -430,29 +422,9 @@ void cleanup_plugins(void)
 	}
 	g_list_free(gp_data->general_list);
 	g_free(gp_data);
-
-	node = get_vis_enabled_list();
-	while (node)
-	{
-		VisPlugin *vp = node->data;
-		next = node->next;
-		enable_vis_plugin(g_list_index(vp_data->vis_list, vp), FALSE);
-		node = next;
-	}
-	g_list_free(vp_data->enabled_list);
 	
-	GDK_THREADS_LEAVE();
+	// GDK_THREADS_LEAVE();
 	while(g_main_iteration(FALSE));
-	GDK_THREADS_ENTER();
-	
-	node = vp_data->vis_list;
-	while (node)
-	{
-		VisPlugin *vp = node->data;
-		g_free(vp->filename);
-		close_dynamic_lib(vp->handle);
-		node = node->next;
-	}
-	g_list_free(vp_data->vis_list);
-	g_free(vp_data);
+	// GDK_THREADS_ENTER();
+
 }
