@@ -1,6 +1,7 @@
 #ifndef XMMS_H
 #define XMMS_H
 
+#include <glib.h>
 #include <X11/Xlib.h>
 
 #include <sys/time.h>
@@ -19,6 +20,18 @@
 
 #include <math.h>
 
+#include "vis.h"
+#include "playlist.h"
+// #include "playlist_list.h"
 #include "plugin.h"
+#include "pluginenum.h"
+#include "output.h"
+#include "input.h"
+#include "effect.h"
+#include "general.h"
+#include "visualization.h"
+#include "skinwin.h"
+#include "main.h"
+#include "playlistwin.h"
 
 #endif

@@ -12,11 +12,12 @@
 
 #include "xmms.h"
 
+Config cfg;
+
 int main() {
 
-    gchar *filename;
-    filename = g_strconcat(g_get_home_dir(), "/.xmms", NULL);
-    printf("%s", filename);
-    g_free(filename);
+    // printf("PLUGIN_DIR=%s\n", PLUGIN_DIR);
+    // printf("PLUGINSUBS=%s", PLUGINSUBS);
+    // init_plugins();
 
 }
