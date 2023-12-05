@@ -23,6 +23,6 @@ OutputPlugin coreaudio_op =
 
 OutputPlugin *get_oplugin_info(void)
 {
-	coreaudio_op.description = g_strdup_printf(_("CoreAudio %s output plugin"), "1.0");
+	coreaudio_op.description = g_strdup_printf("CoreAudio %s output plugin", "1.0");
 	return &coreaudio_op;
 }
