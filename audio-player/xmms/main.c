@@ -4192,7 +4192,6 @@ int main(int argc, char **argv)
 
 	signal(SIGPIPE, SIG_IGN); /* for controlsocket.c */
 	signal(SIGSEGV, segfault_handler);
-	g_thread_init(NULL);
 	gtk_set_locale();
 	if (!g_thread_supported())
 		g_error(_("GLib does not support threads."));

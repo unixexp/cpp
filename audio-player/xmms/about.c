@@ -356,9 +356,98 @@ void show_about_window(void)
 	gtk_widget_show_all(about_window);
 }
 
-int main() {
+void show_about_window_temp(void)
+{
+	static GtkWidget *about_window = NULL;
+	static GdkPixmap *xmms_logo_pmap = NULL, *xmms_logo_mask = NULL;
 
-	show_about_window();
+	GtkWidget *about_vbox, *about_notebook;
+	GtkWidget *about_credits_logo_box, *about_credits_logo_frame;
+	GtkWidget *about_credits_logo;
+	GtkWidget *bbox, *close_btn;
+	GtkWidget *label, *list;
+	gchar *text;
+
+	if (about_window)
+		return;
+	
+	about_window = gtk_window_new(GTK_WINDOW_DIALOG);
+	gtk_window_set_title(GTK_WINDOW(about_window), _("About XMMS"));
+	gtk_window_set_policy(GTK_WINDOW(about_window), FALSE, TRUE, FALSE);
+	gtk_container_set_border_width(GTK_CONTAINER(about_window), 10);
+	gtk_signal_connect(GTK_OBJECT(about_window), "destroy",
+			   GTK_SIGNAL_FUNC(gtk_widget_destroyed), &about_window);
+	// gtk_signal_connect(GTK_OBJECT(about_window), "key_press_event",
+	//		   util_dialog_keypress_cb, NULL);
+	gtk_widget_realize(about_window);
+
+	about_vbox = gtk_vbox_new(FALSE, 5);
+	gtk_container_add(GTK_CONTAINER(about_window), about_vbox);
+	
+	if (!xmms_logo_pmap)
+		xmms_logo_pmap =
+			gdk_pixmap_create_from_xpm_d(about_window->window,
+						     &xmms_logo_mask, NULL,
+						     xmms_logo);
+	
+	about_credits_logo_box = gtk_hbox_new(TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(about_vbox), about_credits_logo_box,
+			   FALSE, FALSE, 0);
+
+	about_credits_logo_frame = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(about_credits_logo_frame),
+				  GTK_SHADOW_OUT);
+	gtk_box_pack_start(GTK_BOX(about_credits_logo_box),
+			   about_credits_logo_frame, FALSE, FALSE, 0);
+
+	about_credits_logo = gtk_pixmap_new(xmms_logo_pmap, xmms_logo_mask);
+	gtk_container_add(GTK_CONTAINER(about_credits_logo_frame),
+			  about_credits_logo);
+
+	text = g_strdup_printf(_("XMMS %s - Cross platform multimedia player"),
+			       VERSION);
+	label = gtk_label_new(text);
+	g_free(text);
+
+	gtk_box_pack_start(GTK_BOX(about_vbox), label, FALSE, FALSE, 0);
+	
+	label = gtk_label_new(_("Copyright (C) 1997-2004 4Front Technologies "
+				"and The XMMS Team"));
+	gtk_box_pack_start(GTK_BOX(about_vbox), label, FALSE, FALSE, 0);
+	
+	about_notebook = gtk_notebook_new();
+	gtk_box_pack_start(GTK_BOX(about_vbox), about_notebook, TRUE, TRUE, 0);
+	
+	list = generate_credit_list(credit_text, TRUE);
+	
+	gtk_notebook_append_page(GTK_NOTEBOOK(about_notebook), list,
+				 gtk_label_new(_("Credits")));
+
+	list = generate_credit_list(translators, FALSE);
+	
+	gtk_notebook_append_page(GTK_NOTEBOOK(about_notebook), list,
+				 gtk_label_new(_("Translators")));
+	bbox = gtk_hbutton_box_new();
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_END);
+	gtk_button_box_set_spacing(GTK_BUTTON_BOX(bbox), 5);
+	gtk_box_pack_start(GTK_BOX(about_vbox), bbox, FALSE, FALSE, 0);
+
+	close_btn = gtk_button_new_with_label(_("Close"));
+	gtk_signal_connect_object(GTK_OBJECT(close_btn), "clicked",
+				  GTK_SIGNAL_FUNC(gtk_widget_destroy),
+				  GTK_OBJECT(about_window));
+	GTK_WIDGET_SET_FLAGS(close_btn, GTK_CAN_DEFAULT);
+	gtk_box_pack_start(GTK_BOX(bbox), close_btn, TRUE, TRUE, 0);
+	gtk_widget_grab_default(close_btn);
+
+	gtk_widget_show_all(about_window);
+}
+
+int main(int argc, char **argv) {
+
+	gtk_init_check(&argc, &argv);
+	show_about_window_temp();
+	gtk_main();
 
 	return 0;
 }
