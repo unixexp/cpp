@@ -1,0 +1,7 @@
+1. Install xcode
+
+2. Install macports from https://www.macports.org/install.php
+3. Install GTK2
+
+    sudo port install gtk2
+
