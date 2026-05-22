@@ -1,3 +1,0 @@
-/Users/unixexp/personal/home/development/cpp/cmake-ex1/project1/build/CMakeFiles/JsonApp.dir
-/Users/unixexp/personal/home/development/cpp/cmake-ex1/project1/build/CMakeFiles/edit_cache.dir
-/Users/unixexp/personal/home/development/cpp/cmake-ex1/project1/build/CMakeFiles/rebuild_cache.dir
