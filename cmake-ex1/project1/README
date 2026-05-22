@@ -1,0 +1,4 @@
+vcpkg install nlohmann_json
+cmake -B build -DCMAKE_TOOLCHAIN_FILE=[vcpkg/scripts/buildsystems/vcpkg.cmake]
+cmake --build ./build
+./build/JsonApp
