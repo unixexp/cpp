@@ -1,6 +1,8 @@
 #include <iostream>
 #include <AudioToolbox/AudioToolbox.h>
 
+#include "AudioCallback.h"
+
 int main(int argc, const char* argv[]) {
     // Define audio component
     AudioComponentDescription desc;
