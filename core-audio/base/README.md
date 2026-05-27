@@ -1,3 +1,6 @@
+**Prepare env***
+brew install cmake
+
 **Compile**
 
 cmake -B ./build
