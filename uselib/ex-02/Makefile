@@ -6,7 +6,7 @@ OUT = $(BUILD_DIR)/main
 CC = g++
 FLAGS = -g -c -Wall
 LFLAGS =
-LIBS = -lsmartcontainer -Lbuild/lib
+LIBS = -lsmartconta1iner -Lbuild/lib
 # -g option enables debugging mode 
 # -c flag generates object code for separate files
 
