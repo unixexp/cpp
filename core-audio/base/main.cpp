@@ -1,7 +1,42 @@
+#include <iomanip>
 #include <iostream>
 #include <AudioToolbox/AudioToolbox.h>
 
 #include "AudioCallback.h"
+#include "Utils.h"
+
+void printDevices(const std::vector<AudioDeviceDetails>& devices) {
+    const int id_w = 4;
+    const int name_w = 32;
+    const int streams_w = 4;
+    const int selected_w = 4;
+
+    std::cout
+        << "Available audio devices:\n"
+        << std::left
+        << std::setw(id_w) << "id" << " | "
+        << std::setw(name_w) << "name" << " | "
+        << std::setw(streams_w) << "in" << " | "
+        << std::setw(streams_w) << "out" << " | "
+        << std::setw(selected_w) << "selected" << " |\n";
+    
+    std::cout << std::string(id_w + name_w + (streams_w * 2) + selected_w + 18, '-') << "\n";
+
+    for (int i = 0; i < devices.size(); ++i) {
+        AudioDeviceDetails dev = devices[i];
+        std::cout
+            << std::left
+            << std::setw(id_w) << dev.id << " | "
+            << std::setw(name_w) << dev.localName.data() << " | "
+            << std::setw(streams_w) << dev.inputStreams << " | "
+            << std::setw(streams_w) << dev.outputStreams << " | "
+            << std::setw(selected_w + 4) << (dev.selected ? "+" : " ") << " | ";
+
+        if (i < devices.size() - 1) {
+            std::cout << "\n";
+        }
+    }
+}
 
 int main(int argc, const char* argv[]) {
     // Define audio component
@@ -15,6 +50,10 @@ int main(int argc, const char* argv[]) {
     AudioComponent comp = AudioComponentFindNext(NULL, &desc);
     AudioUnit audioUnit;
     AudioComponentInstanceNew(comp, &audioUnit);
+
+    // Show available audio devices
+    std::vector<AudioDeviceDetails> devices = getAudioDeviceList();
+    printDevices(devices);
 
     // Get audio device
     AudioDeviceID defaultDevice = kAudioDeviceUnknown;
@@ -61,13 +100,12 @@ int main(int argc, const char* argv[]) {
     AudioUnitInitialize(audioUnit);
     AudioOutputUnitStart(audioUnit);
 
-    std::cout << "CoreAudio engine started. Press return to exit... " << std::endl;
+    std::cout << "\n\n" << "CoreAudio engine started. Press return to exit... " << "\n\n";
     std::cin.get();
 
     AudioOutputUnitStop(audioUnit);
     AudioUnitUninitialize(audioUnit);
     AudioComponentInstanceDispose(audioUnit);
-    //AudioDeviceID defaultDevice = kAudioDeviceUnknown;
 
     return 0;
 }
