@@ -28,6 +28,7 @@ OSStatus myAudioCallback(void *inRefCon,
         
         // right channel
         float xR = rightBuffer[frame];
+        // std::cout << std::fixed << std::setprecision(6) << xR << std::endl;
         float yR = alpha * xR + (1.0f - alpha) * prevOutputR;
         prevOutputR = yR;
         rightBuffer[frame] = yR;

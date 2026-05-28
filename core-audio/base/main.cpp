@@ -100,7 +100,7 @@ int main(int argc, const char* argv[]) {
     AudioUnitInitialize(audioUnit);
     AudioOutputUnitStart(audioUnit);
 
-    std::cout << "\n\n" << "CoreAudio engine started. Press return to exit... " << "\n\n";
+    std::cout << "\n\n" << "CoreAudio engine started for device with id '" << defaultDevice << "'. Press return to exit... " << "\n\n";
     std::cin.get();
 
     AudioOutputUnitStop(audioUnit);
