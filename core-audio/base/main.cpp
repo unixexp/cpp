@@ -16,6 +16,24 @@ int main(int argc, const char* argv[]) {
     AudioUnit audioUnit;
     AudioComponentInstanceNew(comp, &audioUnit);
 
+    // Get audio device
+    AudioDeviceID defaultDevice = kAudioDeviceUnknown;
+    UInt32 propertySize = sizeof(defaultDevice);
+    AudioObjectPropertyAddress propertyAddress = {
+        kAudioHardwarePropertyDefaultOutputDevice,
+        kAudioObjectPropertyScopeGlobal,
+        kAudioObjectPropertyElementMain
+    };
+    AudioObjectGetPropertyData(kAudioObjectSystemObject, &propertyAddress, 0, NULL, &propertySize, &defaultDevice);
+
+    // Attach audio device to audio unit
+    AudioUnitSetProperty(audioUnit,
+        kAudioOutputUnitProperty_CurrentDevice,
+        kAudioUnitScope_Global,
+        0,
+        &defaultDevice,
+        sizeof(defaultDevice));
+
     // Enable audio input/output
     UInt32 enabledIO = 1;
     AudioUnitSetProperty(audioUnit, kAudioOutputUnitProperty_EnableIO, kAudioUnitScope_Output, 0, &enabledIO, sizeof(enabledIO));
